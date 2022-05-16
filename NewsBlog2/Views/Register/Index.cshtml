@@ -1,0 +1,62 @@
+﻿@model NewsBlog2.Models.UserRegisterVM
+@{
+    ViewData["Title"] = "Index";
+}
+
+@Html.AntiForgeryToken()
+<form class="pt-3" method="post" asp-action="/Register/Index">
+    <div class="form-group">
+        <label>Kullanıcı</label>
+        <span asp-validation-for="UserName" class="text-danger"></span>
+        <input type="text" asp-for="UserName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Adınız</label>
+        <span asp-validation-for="FirstName" class="text-danger"></span>
+        <input type="text" asp-for="FirstName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Soyadınız</label>
+        <span asp-validation-for="LastName" class="text-danger"></span>
+        <input type="text" asp-for="LastName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Mail</label>
+        <span asp-validation-for="Mail" class="text-danger"></span>
+        <input type="email" asp-for="Mail" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Şifre</label>
+        <span asp-validation-for="Password" class="text-danger"></span>
+        <input type="password" asp-for="Password" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Doğum Tarihiniz</label>
+        <span asp-validation-for="Birthday" class="text-danger"></span>
+        <input type="date" asp-for="Birthday" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Kimlik No</label>
+        <span asp-validation-for="IdentityNumber" class="text-danger"></span>
+        <input type="text" asp-for="IdentityNumber" onkeypress="return onlyNumberKey(event)" id="myInput" class="form-control" />
+        @Html.ValidationMessageFor(x => x.IdentityNumber, null, new { @class = "invalid-feedback d-block" })
+    </div>
+    <div class="text-danger" asp-validation-summary="ModelOnly">
+
+    </div>
+    <div class="register-button">
+        <button class="btn btn-primary" type="submit" asp-action="Index">Kayıt Ol</button>
+    </div>
+</form>
+
+<script>
+    function onlyNumberKey(evt) {
+
+        // Only ASCII character in that range allowed
+        var ASCIICode = (evt.which) ? evt.which : evt.keyCode
+        if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
+            return false;
+        return true;
+    }
+</script>
+
