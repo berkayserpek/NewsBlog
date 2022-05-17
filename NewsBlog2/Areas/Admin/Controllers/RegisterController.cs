@@ -1,4 +1,6 @@
-﻿using BusinessLayer.ValidationRules;
+﻿using BusinessLayer.Concrete;
+using BusinessLayer.ValidationRules;
+using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
 using FluentValidation;
 using FluentValidation.Results;
@@ -13,6 +15,7 @@ using System.Threading.Tasks;
 
 namespace NewsBlog2.Controllers
 {
+    [Route("Admin/[controller]/[action]")]
     public class RegisterController : Controller
     {
         private readonly UserManager<User> _userManager;
@@ -21,7 +24,7 @@ namespace NewsBlog2.Controllers
         {
             _userManager = userManager;
         }
-
+        [Area("Admin")]
         [HttpGet]
         public IActionResult Index()
         {
@@ -31,7 +34,7 @@ namespace NewsBlog2.Controllers
         [ValidateAntiForgeryToken]
         [HttpPost]
         public async Task<IActionResult> Index(UserRegisterVM userRegisterVM)
-        {                       
+        {
             if (ModelState.IsValid)
             {
                 User user = new User()
@@ -43,6 +46,8 @@ namespace NewsBlog2.Controllers
                     Birthday = userRegisterVM.Birthday,
                     Email = userRegisterVM.Mail,
                 };
+                UserRole userRole = new UserRole();
+                
                 UserValidator validations = new UserValidator();
                 ValidationResult validationResult = validations.Validate(user);
                 if (validationResult.IsValid)
