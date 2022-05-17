@@ -1,7 +1,9 @@
 using BusinessLayer.Abstract;
 using BusinessLayer.Concrete;
 using BusinessLayer.ValidationRules;
+using DataAccessLayer.Abstract;
 using DataAccessLayer.Concrete;
+using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
 using FluentValidation;
 using FluentValidation.AspNetCore;
@@ -39,9 +41,11 @@ namespace NewsBlog2
             services.AddControllersWithViews();
             services.AddTransient<IValidator<User>, UserValidator>();
 
-            services.AddScoped<ICategoryService, CategoryManager>();
-            services.AddScoped<INewService, NewManager>();
-            services.AddScoped<ICommentService, CommentManager>();
+            //services.AddScoped<ICategoryService, CategoryManager>();
+            //services.AddScoped<INewService, NewManager>();
+            //services.AddScoped<ICommentService, CommentManager>();
+
+            services.AddSingleton<INewRepository, NewRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
