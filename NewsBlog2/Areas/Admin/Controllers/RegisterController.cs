@@ -1,5 +1,6 @@
 ﻿using BusinessLayer.Concrete;
 using BusinessLayer.ValidationRules;
+using DataAccessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
 using FluentValidation;
@@ -19,11 +20,13 @@ namespace NewsBlog2.Controllers
     public class RegisterController : Controller
     {
         private readonly UserManager<User> _userManager;
-
-        public RegisterController(UserManager<User> userManager)
+        private readonly RoleManager<UserRole> _roleManager;
+        public RegisterController(UserManager<User> userManager, RoleManager<UserRole> roleManager)
         {
+            _roleManager = roleManager;
             _userManager = userManager;
         }
+
         [Area("Admin")]
         [HttpGet]
         public IActionResult Index()
@@ -45,17 +48,21 @@ namespace NewsBlog2.Controllers
                     IdentityNumber = userRegisterVM.IdentityNumber,
                     Birthday = userRegisterVM.Birthday,
                     Email = userRegisterVM.Mail,
-                };
-                UserRole userRole = new UserRole();
+                };               
                 
                 UserValidator validations = new UserValidator();
                 ValidationResult validationResult = validations.Validate(user);
                 if (validationResult.IsValid)
                 {
                     var result = await _userManager.CreateAsync(user, userRegisterVM.Password);
-                    if (result.Succeeded)
+                    var roleManager = await _roleManager.RoleExistsAsync("Admin");                   
+                    if (result.Succeeded && roleManager == true)
                     {
-                        return RedirectToAction("Index", "Login");
+                        var result1 = _userManager.AddToRoleAsync(user, "Admin");
+                        if (result1.IsCompletedSuccessfully)
+                        {
+                            return RedirectToAction("Index", "Login");
+                        }                   
                     }
                     else
                     {

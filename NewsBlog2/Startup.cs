@@ -36,7 +36,12 @@ namespace NewsBlog2
             services.AddMvc().AddFluentValidation(x=> {
                 x.RegisterValidatorsFromAssemblyContaining<UserValidator>();
             });
+
+            //services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
+            //    .AddEntityFrameworkStores<Context>();
+
             services.AddControllersWithViews();
+            services.AddRazorPages();
             services.AddTransient<IValidator<User>, UserValidator>();
 
             //services.AddScoped<ICategoryService, CategoryManager>();
@@ -59,9 +64,10 @@ namespace NewsBlog2
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseAuthentication();
+
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -69,6 +75,7 @@ namespace NewsBlog2
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }
