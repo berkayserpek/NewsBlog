@@ -3,34 +3,32 @@ using EntityLayer.Concrete;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using NewsBlog2.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NewsBlog2.Areas.Admin.Controllers
+namespace NewsBlog2.Areas.User.Controllers
 {
-    [Route("Admin/[action]")]
+    [Route("User/[action]")]
     public class RegisterController : Controller
     {
         private readonly UserManager<UserPerson> _userManager;
         private readonly RoleManager<UserRole> _roleManager;
+
         public RegisterController(UserManager<UserPerson> userManager, RoleManager<UserRole> roleManager)
         {
-            _roleManager = roleManager;
             _userManager = userManager;
+            _roleManager = roleManager;
         }
 
-        [Area("Admin")]
+        [Area("User")]
         [HttpGet]
         public IActionResult Register()
         {
             return View();
         }
-
-        [ValidateAntiForgeryToken]
         [HttpPost]
         public async Task<IActionResult> Register(UserRegisterVM userRegisterVM)
         {
@@ -51,7 +49,7 @@ namespace NewsBlog2.Areas.Admin.Controllers
                 if (validationResult.IsValid)
                 {
                     var result = await _userManager.CreateAsync(user, userRegisterVM.Password);
-                    var defaultrole = _roleManager.FindByNameAsync("Moderator").Result;
+                    var defaultrole = _roleManager.FindByNameAsync("User").Result;
                     if (defaultrole != null)
                     {
                         IdentityResult roleresult = await _userManager.AddToRoleAsync(user, defaultrole.Name);

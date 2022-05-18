@@ -1,10 +1,11 @@
 ﻿@model NewsBlog2.Models.UserRegisterVM
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @Html.AntiForgeryToken()
-<form class="pt-3" method="post" asp-action="/Register/Index">
+<form class="pt-3" method="post" asp-area="User" asp-action="/Register/Register">
     <div class="form-group">
         <label>Kullanıcı</label>
         <span asp-validation-for="UserName" class="text-danger"></span>

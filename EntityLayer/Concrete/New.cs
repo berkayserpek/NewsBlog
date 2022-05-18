@@ -14,7 +14,7 @@ namespace EntityLayer.Concrete
         public string ImageURL { get; set; }
         public DateTime Date { get; set; }
         public bool Status { get; set; }
-        public User User { get; set; }
+        public UserPerson User { get; set; }
         public int UserID { get; set; }
         public ICollection<Comment> Comments { get; set; }
         public Category Category { get; set; }

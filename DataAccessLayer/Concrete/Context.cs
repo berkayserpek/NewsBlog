@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Concrete
 {
-    public class Context : IdentityDbContext<User,UserRole,int>
+    public class Context : IdentityDbContext<UserPerson, UserRole,int>
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("server=DESKTOP-0PGE4PE;database=NewsDB;user=sa;password=berkay345..;integrated security=true;");
+            optionsBuilder.UseSqlServer("server=LAPTOP-BR4E36S8;database=NewsDB;user=sa;password=berkay345..;integrated security=true;");
         }
-        public DbSet<User> Users { get; set; }
+        public DbSet<UserPerson> Users { get; set; }
         public DbSet<New> News { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Comment> Comments { get; set; }

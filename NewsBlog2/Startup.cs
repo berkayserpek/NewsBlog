@@ -8,6 +8,7 @@ using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -31,8 +32,17 @@ namespace NewsBlog2
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<Context>();
-            //identity için
-            services.AddIdentity<User, UserRole>().AddEntityFrameworkStores<Context>();
+            ////identity için
+            //services.AddIdentity<User, UserRole>().AddEntityFrameworkStores<Context>();
+
+            //services.AddDbContext<Context>(x =>
+            //    x.UseSqlServer("server=LAPTOP-BR4E36S8;database=NewsDB;user=sa;password=berkay345..;integrated security=true;")
+            //);
+            services.AddDefaultIdentity<UserPerson>()
+                .AddRoles<UserRole>()
+                .AddEntityFrameworkStores<Context>();
+            
+            
             services.AddMvc().AddFluentValidation(x=> {
                 x.RegisterValidatorsFromAssemblyContaining<UserValidator>();
             });
@@ -42,7 +52,7 @@ namespace NewsBlog2
 
             services.AddControllersWithViews();
             services.AddRazorPages();
-            services.AddTransient<IValidator<User>, UserValidator>();
+            services.AddTransient<IValidator<UserPerson>, UserValidator>();
 
             //services.AddScoped<ICategoryService, CategoryManager>();
             //services.AddScoped<INewService, NewManager>();
