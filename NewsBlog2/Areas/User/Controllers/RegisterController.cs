@@ -11,24 +11,26 @@ using System.Threading.Tasks;
 
 namespace NewsBlog2.Areas.User.Controllers
 {
+    [Area("User")]
     [Route("User/[action]")]
     public class RegisterController : Controller
     {
         private readonly UserManager<UserPerson> _userManager;
         private readonly RoleManager<UserRole> _roleManager;
-
         public RegisterController(UserManager<UserPerson> userManager, RoleManager<UserRole> roleManager)
         {
-            _userManager = userManager;
             _roleManager = roleManager;
+            _userManager = userManager;
         }
 
-        [Area("User")]
+
         [HttpGet]
         public IActionResult Register()
         {
             return View();
         }
+
+        [ValidateAntiForgeryToken]
         [HttpPost]
         public async Task<IActionResult> Register(UserRegisterVM userRegisterVM)
         {

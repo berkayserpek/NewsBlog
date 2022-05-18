@@ -5,7 +5,7 @@
 }
 
 @Html.AntiForgeryToken()
-<form class="pt-3" method="post" asp-area="User" asp-action="/Register/Register">
+<form class="pt-3" method="post" asp-area="Admin" asp-action="/Register/Register">
     <div class="form-group">
         <label>Kullanıcı</label>
         <span asp-validation-for="UserName" class="text-danger"></span>
@@ -46,7 +46,7 @@
 
     </div>
     <div class="register-button">
-        <button class="btn btn-primary" type="submit" asp-action="Index">Kayıt Ol</button>
+        <button class="btn btn-primary" type="submit" asp-area="User" asp-controller="Login" asp-action="Login">Kayıt Ol</button>
     </div>
 </form>
 

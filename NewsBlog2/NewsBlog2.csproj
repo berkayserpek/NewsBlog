@@ -5,29 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Areas\User\**" />
-    <Content Remove="Areas\User\**" />
-    <EmbeddedResource Remove="Areas\User\**" />
-    <None Remove="Areas\User\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Include="Areas\User\Controllers\LoginController.cs" />
-    <Compile Include="Areas\User\Controllers\RegisterController.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Areas\User\Views\_ViewImports.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Areas\User\Views\_ViewStart.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.17" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.17" />
@@ -50,11 +27,6 @@
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\User\Data\" />
     <Folder Include="Areas\User\Models\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Areas\User\Views\Login\Login.cshtml" />
-    <None Include="Areas\User\Views\Register\Register.cshtml" />
   </ItemGroup>
 
 </Project>

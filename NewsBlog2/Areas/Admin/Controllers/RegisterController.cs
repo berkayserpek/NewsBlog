@@ -3,15 +3,12 @@ using EntityLayer.Concrete;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using NewsBlog2.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace NewsBlog2.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     [Route("Admin/[action]")]
     public class RegisterController : Controller
     {
@@ -23,7 +20,7 @@ namespace NewsBlog2.Areas.Admin.Controllers
             _userManager = userManager;
         }
 
-        [Area("Admin")]
+        
         [HttpGet]
         public IActionResult Register()
         {

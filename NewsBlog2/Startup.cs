@@ -5,9 +5,11 @@ using DataAccessLayer.Concrete;
 using EntityLayer.Concrete;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -41,9 +43,10 @@ namespace NewsBlog2
             services.AddDefaultIdentity<UserPerson>()
                 .AddRoles<UserRole>()
                 .AddEntityFrameworkStores<Context>();
-            
-            
-            services.AddMvc().AddFluentValidation(x=> {
+
+
+            services.AddMvc().AddFluentValidation(x =>
+            {
                 x.RegisterValidatorsFromAssemblyContaining<UserValidator>();
             });
 
@@ -51,7 +54,14 @@ namespace NewsBlog2
             //    .AddEntityFrameworkStores<Context>();
 
             services.AddControllersWithViews();
-            services.AddRazorPages();
+            //services.AddMvc(config =>
+            //{
+            //    var policy = new AuthorizationPolicyBuilder()
+            //    .RequireAuthenticatedUser()
+            //    .Build();
+            //    config.Filters.Add(new AuthorizeFilter(policy));
+            //});
+            //services.AddRazorPages();
             services.AddTransient<IValidator<UserPerson>, UserValidator>();
 
             //services.AddScoped<ICategoryService, CategoryManager>();
@@ -86,6 +96,14 @@ namespace NewsBlog2
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
+            });
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                  name: "areas",
+                  pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
             });
         }
     }
