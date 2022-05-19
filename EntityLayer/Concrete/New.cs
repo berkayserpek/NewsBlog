@@ -13,7 +13,7 @@ namespace EntityLayer.Concrete
         public string Description { get; set; }
         public string ImageURL { get; set; }
         public DateTime Date { get; set; }
-        public bool Status { get; set; }
+        public int Status { get; set; }
         public UserPerson User { get; set; }
         public int UserID { get; set; }
         public ICollection<Comment> Comments { get; set; }

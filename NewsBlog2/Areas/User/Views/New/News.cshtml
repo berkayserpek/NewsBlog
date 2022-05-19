@@ -1,0 +1,67 @@
+﻿@using EntityLayer.Concrete
+@model List<New>
+
+@{
+    ViewData["Title"] = "News";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    IEnumerable<Category> categories = ViewBag.Category;
+}
+
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Haberlerim</h4>
+            <a asp-area="User" asp-controller="New" asp-action="AddNews" class="btn btn-outline-info" style="margin-bottom:10px !important;">Haber Ekle</a>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Başlık</th>
+                            <th>İçerik</th>
+                            <th>Tarih</th>
+                            <th>Durum</th>
+                            <th>Kategori</th>
+                            <th>Sil</th>
+                            <th>Detay</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Title</td>
+                                <td>@item.Description</td>
+                                <td>@(((DateTime)item.Date).ToString("dd-MM-yyyy"))</td>
+                                <td>
+                                    @if (item.Status == 0)
+                                    {
+                                        <img src="~/Icons/Waiting.png" alt="Bekleniyor" width="24" height="24" />
+                                    }
+                                    else if (item.Status == 1)
+                                    {
+                                        <img src="~/Icons/Accept.png" alt="Onaylandı" width="24" height="24" />
+                                    }
+                                    else if (item.Status == 2)
+                                    {
+                                        <img src="~/Icons/Reject.png" alt="Reddedildi." width="24" height="24" />
+                                    }
+                                <td>
+                                    @foreach (var category in categories)
+                                    {
+                                        if (category.CategoryID == item.CategoryID)
+                                        {
+                                            @category.CategoryName
+                                        }
+                                    }
+                            </td>
+                            <td><a href="/User/UpdateNews/@item.NewID" class="btn btn-outline-success">Güncelle</a></td>
+                            <td><a href="/User/DeleteNews/@item.NewID" class="btn btn-outline-danger">Sil</a></td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

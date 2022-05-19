@@ -18,6 +18,11 @@ namespace BusinessLayer.Concrete
             _newRepository = newRepository;
         }
 
+        public List<New> GetListByUserID(int id)
+        {
+            return _newRepository.GetListByUserID(id);
+        }
+
         public void TAdd(New t)
         {
             _newRepository.Insert(t);

@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BusinessLayer.Concrete;
+using DataAccessLayer.EntityFramework;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using NewsBlog2.Models;
 using System;
@@ -12,7 +14,7 @@ namespace NewsBlog2.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
+        NewManager newManager = new NewManager(new NewRepository());
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
@@ -20,9 +22,9 @@ namespace NewsBlog2.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var values = newManager.TGetList();
+            return View(values);
         }
-
         public IActionResult Privacy()
         {
             return View();

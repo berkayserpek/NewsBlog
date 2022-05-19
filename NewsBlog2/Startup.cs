@@ -35,7 +35,7 @@ namespace NewsBlog2
         {
             services.AddDbContext<Context>();
             ////identity için
-            //services.AddIdentity<User, UserRole>().AddEntityFrameworkStores<Context>();
+            //services.AddIdentity<UserPerson, UserRole>().AddEntityFrameworkStores<Context>();
 
             //services.AddDbContext<Context>(x =>
             //    x.UseSqlServer("server=LAPTOP-BR4E36S8;database=NewsDB;user=sa;password=berkay345..;integrated security=true;")
@@ -43,16 +43,6 @@ namespace NewsBlog2
             services.AddDefaultIdentity<UserPerson>()
                 .AddRoles<UserRole>()
                 .AddEntityFrameworkStores<Context>();
-
-
-            services.AddMvc().AddFluentValidation(x =>
-            {
-                x.RegisterValidatorsFromAssemblyContaining<UserValidator>();
-            });
-
-            //services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
-            //    .AddEntityFrameworkStores<Context>();
-
             services.AddControllersWithViews();
             //services.AddMvc(config =>
             //{
@@ -61,6 +51,25 @@ namespace NewsBlog2
             //    .Build();
             //    config.Filters.Add(new AuthorizeFilter(policy));
             //});
+
+            services.AddMvc().AddFluentValidation(x =>
+            {
+                x.RegisterValidatorsFromAssemblyContaining<UserValidator>();
+            });
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.Cookie.HttpOnly = true;
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(10);
+                options.AccessDeniedPath = "/Error/Index";
+            }
+
+            );
+
+            //services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
+            //    .AddEntityFrameworkStores<Context>();
+
+           
             //services.AddRazorPages();
             services.AddTransient<IValidator<UserPerson>, UserValidator>();
 
