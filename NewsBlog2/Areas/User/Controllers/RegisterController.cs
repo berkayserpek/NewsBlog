@@ -1,6 +1,7 @@
 ﻿using BusinessLayer.ValidationRules;
 using EntityLayer.Concrete;
 using FluentValidation.Results;
+using MernisService;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using NewsBlog2.Models;
@@ -48,33 +49,44 @@ namespace NewsBlog2.Areas.User.Controllers
 
                 UserValidator validations = new UserValidator();
                 ValidationResult validationResult = validations.Validate(user);
-                if (validationResult.IsValid)
+                var client = new MernisService.KPSPublicSoapClient(KPSPublicSoapClient.EndpointConfiguration.KPSPublicSoap);
+                var response = await client.TCKimlikNoDogrulaAsync(Convert.ToInt64(userRegisterVM.IdentityNumber), userRegisterVM.FirstName, userRegisterVM.LastName, userRegisterVM.Birthday.Year);
+                var kimlikNoResult = response.Body.TCKimlikNoDogrulaResult;
+                if(kimlikNoResult == true)
                 {
-                    var result = await _userManager.CreateAsync(user, userRegisterVM.Password);
-                    var defaultrole = _roleManager.FindByNameAsync("User").Result;
-                    if (defaultrole != null)
+                    if (validationResult.IsValid)
                     {
-                        IdentityResult roleresult = await _userManager.AddToRoleAsync(user, defaultrole.Name);
-                        if (result.Succeeded && roleresult.Succeeded)
+                        var result = await _userManager.CreateAsync(user, userRegisterVM.Password);
+                        var defaultrole = _roleManager.FindByNameAsync("User").Result;
+                        if (defaultrole != null)
                         {
-                            return RedirectToAction("Index", "Login");
+                            IdentityResult roleresult = await _userManager.AddToRoleAsync(user, defaultrole.Name);
+                            if (result.Succeeded && roleresult.Succeeded)
+                            {
+                                return RedirectToAction("Login", "Login");
+                            }
+                        }
+                        else
+                        {
+                            foreach (var item in result.Errors)
+                            {
+                                ModelState.AddModelError("", item.Description);
+                            }
                         }
                     }
                     else
                     {
-                        foreach (var item in result.Errors)
+                        foreach (var item in validationResult.Errors)
                         {
-                            ModelState.AddModelError("", item.Description);
+                            ModelState.AddModelError("", item.ErrorMessage.ToString());
                         }
                     }
                 }
                 else
                 {
-                    foreach (var item in validationResult.Errors)
-                    {
-                        ModelState.AddModelError("", item.ErrorMessage.ToString());
-                    }
+                    ModelState.AddModelError("","Bilgilerinizi kontrol edin!");
                 }
+                
 
             }
             return View(userRegisterVM);
