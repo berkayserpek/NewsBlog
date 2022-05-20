@@ -1,7 +1,7 @@
-﻿@using EntityLayer.Concrete
-@model IEnumerable<New>
+﻿
 
 @{
+    
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -9,6 +9,7 @@
 <div class="content-wrapper">
     <div class="container">
         <div class="row" data-aos="fade-up">
+            
             @Html.Partial("Description")
             @Html.Partial("TopDescription")
             @Html.Partial("BotDescription")
@@ -16,3 +17,4 @@
         </div>
     </div>
 </div>
+

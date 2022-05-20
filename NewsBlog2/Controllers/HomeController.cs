@@ -16,6 +16,7 @@ namespace NewsBlog2.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         NewManager newManager = new NewManager(new NewRepository());
+        CategoryManager categoryManager = new CategoryManager(new CategoryRepository());
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
@@ -49,7 +50,8 @@ namespace NewsBlog2.Controllers
         }
         public PartialViewResult BotDescription()
         {
-            return PartialView();
+            var categories = categoryManager.TGetList();
+            return PartialView(categories);
         }
         public PartialViewResult MainDescription()
         {
