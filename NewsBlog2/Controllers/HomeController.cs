@@ -39,7 +39,22 @@ namespace NewsBlog2.Controllers
         }
         public PartialViewResult Description()
         {
+            var values = newManager.TGetList();
+            return PartialView(values);
+        }
+        public PartialViewResult TopDescription()
+        {
+            var values = newManager.TGetList();
+            return PartialView(values);
+        }
+        public PartialViewResult BotDescription()
+        {
             return PartialView();
+        }
+        public PartialViewResult MainDescription()
+        {
+            var values = newManager.TGetList();
+            return PartialView(values);
         }
         public PartialViewResult Footer()
         {
