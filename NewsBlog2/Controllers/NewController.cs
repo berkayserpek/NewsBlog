@@ -24,5 +24,10 @@ namespace NewsBlog2.Controllers
             var valeus = newManager.TGetByID(id);
             return View(valeus);
         }
+        public IActionResult NewsGetByCategoryID(int id)
+        {
+            var values = newManager.GetListByCategoryID(id);
+            return View(values);
+        }
     }
 }
