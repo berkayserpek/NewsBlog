@@ -26,14 +26,20 @@
                         }
                         else
                         {
-                            <ul class="navbar-top-right-menu">
-                                <li class="nav-item">
-                                    <a href="/User/Users/" class="nav-link">Kullanıcılar</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="/New/News" class="nav-link">Hakkımda</a>
-                                </li>
-                            </ul>
+                <ul class="navbar-top-right-menu">
+                    <li class="nav-item">
+                        <a href="javascript;;" class="nav-link mr-2">Hoşgeldin @User.Identity.Name !</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/Admin/Users/" class="nav-link">Kullanıcılar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/Admin/News/" class="nav-link">Haberler</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/Admin/Categories/" class="nav-link">Kategoriler</a>
+                    </li>
+                </ul>
                         }
 
                     }
