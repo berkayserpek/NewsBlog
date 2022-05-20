@@ -10,5 +10,6 @@ namespace DataAccessLayer.Abstract
     public interface INewRepository : IGenericRepository<New>
     {
         List<New> GetListByUserID(int id);
+        List<New> GetListByCategoryID(int id);
     }
 }

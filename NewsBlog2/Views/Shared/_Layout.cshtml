@@ -1,108 +1,51 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="zxx">
 <head>
-    <meta charset="utf-8" />
+    <!-- Required meta tags -->
+    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - NewsBlog2</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>World Time</title>
+    <!-- plugin css for this page -->
+    <link rel="stylesheet"
+          href="~/urbanui-world-time-0477e81579c7/assets/vendors/mdi/css/materialdesignicons.min.css" />
+    <link rel="stylesheet" href="~/urbanui-world-time-0477e81579c7/assets/vendors/aos/dist/aos.css/aos.css" />
+
+    <!-- End plugin css for this page -->
+    <link rel="shortcut icon" href="~/urbanui-world-time-0477e81579c7/assets/images/favicon.png" />
+
+    <!-- inject:css -->
+    <link rel="stylesheet" href="~/urbanui-world-time-0477e81579c7/assets/css/style.css">
+    <!-- endinject -->
 </head>
+
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-controller="Home" asp-action="Index">NewsBlog2</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Ana Sayfa</a>
-                        </li>
-                    </ul>
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        if (User.IsInRole("Moderator"))
-                        {
-                            <ul class="navbar-nav">
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link text-dark">Hoşgeldin @User.Identity.Name!</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="Admin" asp-controller="New" asp-action="Index">Haberlere Git</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="Admin" asp-controller="User" asp-action="Users">Kullanıcılar</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-controller="LogOut" asp-action="LogOut">Çıkış Yap</a>
-                                </li>
-                            </ul>
+    <div class="container-scroller">
+        <div class="main-panel">
+            <!-- partial:partials/_navbar.html -->
+            @Html.Partial("Header")
 
-                        }
-                        else
-                        {
-                            <ul class="navbar-nav">
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link text-dark">Hoşgeldin @User.Identity.Name!</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="User" asp-controller="New" asp-action="News">Haberlerim</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="User" asp-controller="Profile" asp-action="Index">Profilim</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-controller="LogOut" asp-action="LogOut">Çıkış Yap</a>
-                                </li>
-                            </ul>
-                        }
-
-                    }
-                    else
-                    {
-                        <ul class="navbar-nav float-right flex-grow-0">
-                            <li class="nav-item dropdown pr-2">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Admin
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="/Admin/Register/">Kayıt Ol</a>
-                                    <a class="dropdown-item" href="/Admin/Login/">Giriş Yap</a>
-                                </div>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Kullanıcı
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="/User/Register/">Kayıt Ol</a>
-                                    <a class="dropdown-item" href="/User/Login/">Giriş Yap</a>
-                                </div>
-                            </li>
-                        </ul>
-                    }
-
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+            <!-- partial -->            
+           
+            <!-- main-panel ends -->
+            <!-- container-scroller ends -->
+            <!-- partial:partials/_footer.html -->
+            <footer>
+                @Html.Partial("Footer")
+            </footer>
             @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - NewsBlog2 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <!-- partial -->
         </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+    </div>
+    <!-- inject:js -->
+    <script src="~/urbanui-world-time-0477e81579c7/assets/vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- plugin js for this page -->
+    <script src="~/urbanui-world-time-0477e81579c7/assets/vendors/aos/dist/aos.js/aos.js"></script>
+    <!-- End plugin js for this page -->
+    <!-- Custom js for this page-->
+    <script src="~/urbanui-world-time-0477e81579c7/assets/js/demo.js"></script>
+    <script src="~/urbanui-world-time-0477e81579c7/assets/js/jquery.easeScroll.js"></script>
+    <!-- End custom js for this page-->
 </body>
 </html>

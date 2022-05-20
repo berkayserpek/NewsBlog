@@ -10,5 +10,7 @@ namespace BusinessLayer.Abstract
     public interface INewService : IGenericService<New>
     {
         List<New> GetListByUserID(int id);
+        List<New> GetListByCategoryID(int id);
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿using BusinessLayer.Concrete;
+using DataAccessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -22,7 +23,32 @@ namespace NewsBlog2.Controllers
 
         public IActionResult Index()
         {
+            Context context = new Context();
+            var categories = context.Categories.ToList();
+            if (categories != null)
+            {
+                ViewBag.Category = categories;
+            }
             var values = newManager.TGetList();
+            return View(values);
+        }
+
+        public PartialViewResult Header()
+        {
+            return PartialView();
+        }
+        public PartialViewResult Description()
+        {
+            return PartialView();
+        }
+        public PartialViewResult Footer()
+        {
+            return PartialView();
+        }
+
+        public IActionResult GetNewsByCategoryID(int id)
+        {
+            var values = newManager.GetListByCategoryID(id);
             return View(values);
         }
         public IActionResult Privacy()

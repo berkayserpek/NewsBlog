@@ -18,6 +18,11 @@ namespace BusinessLayer.Concrete
             _newRepository = newRepository;
         }
 
+        public List<New> GetListByCategoryID(int id)
+        {
+            return _newRepository.GetListByCategoryID(id);
+        }
+
         public List<New> GetListByUserID(int id)
         {
             return _newRepository.GetListByUserID(id);
