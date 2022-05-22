@@ -33,11 +33,6 @@ namespace NewsBlog2.Controllers
             var values = newManager.TGetList();
             return View(values);
         }
-
-        public PartialViewResult Header()
-        {
-            return PartialView();
-        }
         public PartialViewResult Description()
         {
             var values = newManager.TGetList();

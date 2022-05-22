@@ -1,0 +1,117 @@
+﻿@using EntityLayer.Concrete
+@model List<Category>
+
+<header id="header">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="navbar-top">
+                <div class="d-flex justify-content-between align-items-center">
+                    <ul class="navbar-top-left-menu">
+                        <li class="nav-item">
+                            <a href="/Home/Index/" class="nav-link">Ana Sayfa</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="pages/aboutus.html" class="nav-link">Hakkımda</a>
+                        </li>
+                        @foreach (var item in Model)
+                        {
+                            <li class="nav-item">
+                                <a href="/New/NewsGetByCategoryID/@item.CategoryID" class="nav-link">@item.CategoryName</a>
+                            </li>
+                        }
+                    </ul>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        if (User.IsInRole("User"))
+                        {
+                            <ul class="navbar-top-right-menu">
+                                <li class="nav-item">
+                                    <a href="/User/News/" class="nav-link">Haber Ekle</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="pages/aboutus.html" class="nav-link">Hakkımda</a>
+                                </li>
+                            </ul>
+                        }
+                        else
+                        {
+                            <ul class="navbar-top-right-menu">
+                                <li class="nav-item">
+                                    <a href="javascript;;" class="nav-link mr-2">Hoşgeldin @User.Identity.Name !</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/Admin/Users/" class="nav-link">Kullanıcılar</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/Admin/News/" class="nav-link">Haberler</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/Admin/Categories/" class="nav-link">Kategoriler</a>
+                                </li>
+                            </ul>
+                        }
+
+                    }
+                    else
+                    {
+                        <ul class="navbar-top-right-menu">
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle mr-2" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Yönetici</button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="/Admin/Register">Kayıt Ol</a>
+                                    <a class="dropdown-item" href="/Admin/Login">Giriş Yap</a>
+                                </div>
+                            </div>
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Kullanıcı</button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="/User/Register">Kayıt Ol</a>
+                                    <a class="dropdown-item" href="/User/Login">Giriş Yap</a>
+                                </div>
+                            </div>
+                        </ul>
+                    }
+                </div>
+            </div>
+            <div class="navbar-bottom">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <button class="navbar-toggler"
+                                type="button"
+                                data-target="#navbarSupportedContent"
+                                aria-controls="navbarSupportedContent"
+                                aria-expanded="false"
+                                aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="navbar-collapse justify-content-center collapse"
+                             id="navbarSupportedContent">
+                            <ul class="navbar-nav d-lg-flex justify-content-between align-items-center">
+                                <li>
+                                    <button class="navbar-close">
+                                        <i class="mdi mdi-close"></i>
+                                    </button>
+                                </li>
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="index.html">Ana Sayfa</a>
+                                </li>
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Kategoriler</button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="#">1</a>
+                                        <a class="dropdown-item" href="#">2</a>
+                                        <a class="dropdown-item" href="#">3</a>
+                                        <a class="dropdown-item" href="#">4</a>
+                                    </div>
+                                </div>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="pages/contactus.html">Contact</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>
