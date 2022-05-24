@@ -8,7 +8,7 @@ namespace EntityLayer.Concrete
 {
     public class Enums
     {
-       public enum UserStatus
+       public enum UserStatus : byte
         {
             Active = 1,
             Passive = 0
