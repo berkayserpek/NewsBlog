@@ -24,14 +24,17 @@
                     {
                         if (User.IsInRole("User"))
                         {
-                            <ul class="navbar-top-right-menu">
-                                <li class="nav-item">
-                                    <a href="/User/News/" class="nav-link">Haber Ekle</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="pages/aboutus.html" class="nav-link">Hakkımda</a>
-                                </li>
-                            </ul>
+                <ul class="navbar-top-right-menu">
+                    <li class="nav-item">
+                        <a href="/User/News/" class="nav-link">Haber Ekle</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="pages/aboutus.html" class="nav-link">Hakkımda</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="javascript;;" class="nav-link">Hoşgeldin @User.Identity.Name!</a>
+                    </li>
+                </ul>
                         }
                         else
                         {

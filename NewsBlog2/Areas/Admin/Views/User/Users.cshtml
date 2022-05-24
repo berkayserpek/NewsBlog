@@ -19,6 +19,7 @@
                             <th>Doğum Tarihi</th>
                             <th>Kimlik No</th>
                             <th>Mail</th>
+                            <th>Güncelle</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -30,6 +31,7 @@
                                 <td>@(((DateTime)item.Birthday).ToString("dd-MM-yyyy"))</td>
                                 <td>@item.IdentityNumber</td>
                                 <td>@item.Email</td>
+                                <td><a class="btn btn-warning" href="/Admin/UserDetail/@item.Id">Güncelle</a></td>
                             </tr>
                         }
                     </tbody>

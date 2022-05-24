@@ -21,5 +21,17 @@ namespace NewsBlog2.Areas.Admin.Controllers
             var users =_userManager.TGetList();
             return View(users);
         }
+        [HttpGet]
+        public IActionResult UserDetail(int id)
+        {
+            var users = _userManager.TGetByID(id);
+            return View(users);
+        }
+        [HttpPost]
+        public IActionResult UserDetail(UserPerson user)
+        {
+            _userManager.TUpdate(user);
+            return RedirectToAction("User", "Users");
+        }
     }
 }

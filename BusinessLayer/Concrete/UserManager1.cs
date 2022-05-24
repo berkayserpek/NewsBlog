@@ -45,7 +45,7 @@ namespace BusinessLayer.Concrete
 
         public void TUpdate(UserPerson t)
         {
-            throw new NotImplementedException();
+            _userRepository.Update(t);
         }
     }
 }
