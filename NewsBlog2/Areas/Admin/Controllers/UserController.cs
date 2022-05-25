@@ -48,30 +48,21 @@ namespace NewsBlog2.Areas.Admin.Controllers
             return View(userUpdate);
         }
         [HttpPost]
-        public IActionResult UserDetail(UserUpdateVM updateUser)
+        public async Task<IActionResult> UserDetail(UserUpdateVM updateUser)
         {
             if (ModelState.IsValid)
             {                
                 var getUser = _userManager.TGetByID(updateUser.Id);
-                var getRole = userManager.IsInRoleAsync(getUser, "Moderator");
+                bool getRole = await userManager.IsInRoleAsync(getUser, "Moderator");
+                if(getRole == true)
+                {
+                    ViewBag.Error = "Bu kullanıcı için işlem yapılamaz";
+                }
                 getUser.FirstName = updateUser.FirstName;
                 getUser.LastName = updateUser.LastName;
                 getUser.Status = updateUser.Status;
                 _userManager.TUpdate(getUser);
-                //if ()
-                //{
-                //    return RedirectToAction("Users", "User");
-                //}
-                //else
-                //{
-                //    foreach (var item in result.Errors)
-                //    {
-                //        ModelState.AddModelError("", item.Description);
-                //    }
-                //}
             }
-            //var getUser = _userManager.TGetByID(user.Id);
-            //var updateUser = await userManager.UpdateAsync(getUser);
             
             return View(updateUser);
 
