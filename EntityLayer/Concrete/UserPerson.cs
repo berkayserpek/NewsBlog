@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace EntityLayer.Concrete
 {
+
     public class UserPerson : IdentityUser<int>
     {
         public string FirstName { get; set; }

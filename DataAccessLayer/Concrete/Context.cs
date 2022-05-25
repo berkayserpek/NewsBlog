@@ -14,10 +14,17 @@ namespace DataAccessLayer.Concrete
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("server=LAPTOP-BR4E36S8;database=NewsDB;user=sa;password=berkay345..;integrated security=true;");
+            optionsBuilder.EnableSensitiveDataLogging();
         }
         public DbSet<UserPerson> Users { get; set; }
         public DbSet<New> News { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Comment> Comments { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            builder.Entity<UserPerson>().Property(x => x.Id).IsConcurrencyToken();
+        }
     }
 }

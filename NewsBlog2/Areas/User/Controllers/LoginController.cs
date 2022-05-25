@@ -35,22 +35,25 @@ namespace NewsBlog2.Areas.User.Controllers
             {
                 var user = _userManager.FindByNameAsync(userLoginVM.UserName).Result;
                 var getAdmin = _userManager.IsInRoleAsync(user, "User").Result;
-                if (getAdmin)
+                if(user.Status == true)
                 {
-                    var result = await _signInManager.PasswordSignInAsync(userLoginVM.UserName, userLoginVM.Password, false, true);
-                    if (result.Succeeded)
-                    {
-                        return RedirectToAction("Index", "Home");
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("", "Hatalı kullanıcı adı veya şifre");
-                    }
-
+                    ModelState.AddModelError("", "Hesabınız askıya alınmıştır..");
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Hatalı kullanıcı adı veya şifre");
+                    if (getAdmin)
+                    {
+                        var result = await _signInManager.PasswordSignInAsync(userLoginVM.UserName, userLoginVM.Password, false, true);
+                        if (result.Succeeded)
+                        {
+                            return RedirectToAction("Index", "Home");
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", "Hatalı kullanıcı adı veya şifre");
+                        }
+
+                    }
                 }
             }
             return View();
