@@ -2,6 +2,7 @@
 using DataAccessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -14,6 +15,7 @@ namespace NewsBlog2.Areas.User.Controllers
 {
     [Area("User")]
     [Route("User/[action]/{id?}")]
+    [Authorize(Roles = "User")]
     public class NewController : Controller
     {
         private readonly UserManager<UserPerson> _userManager;
